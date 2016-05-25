@@ -19,6 +19,8 @@ require_once 'business/class.Brique.php';
 class BriqueManager {
 	
 	private $connection;
+	// Nom de la table
+	const TABLE_NAME = 'brique';
 	
 	// Noms des champs dans la BD
 	const ID = "br_id";
@@ -56,10 +58,10 @@ class BriqueManager {
 	 * @param int $id
 	 * @return NULL|Brique
 	 */
-	public function getBrique($id) {
-		if ($id < 1) return NULL;
+	public function getBrique(int $id) {
+		if ($id < 1) return null;
 		
-		$query = "SELECT * FROM brique WHERE br_id = '$id'";
+		$query = "SELECT * FROM brique WHERE " . self::ID . " = '$id'";
 		$result = $this->connection->selectDB($query);
 		$row = $result->fetch();
 		if (!row) return null;
@@ -139,5 +141,36 @@ class BriqueManager {
 		
 		return $this->connection->executeQuery($query);
 	}
-	// TODO
+	
+	/**
+	 * UPDATE
+	 * @param Brique $brique
+	 * @return string|number
+	 */
+	public function updateBrique(Brique $brique) {
+		$query = "UPDATE brique
+					SET " . self::DEMI_JOUR . " = " . $brique->getDemi_jour() . ", " .
+							self::HABITUELLE . " = " . $brique->isHabituelle() . ", " .
+							self::JOUR_SEMAINE . " = " . $brique->getJour_semaine() . ", " .
+							self::FREQUENCE . " = " . $brique->getFrequence() . ", " .
+							self::DATE_BRIQUE . " = " . $brique->getDate() . ", " .
+							self::TEXTE . " = " . $brique->getTexte() . ", " .
+							self::DUREE . " = " . $brique->getDuree() . ", " .
+							self::UTILISATEUR . " = " . $brique->getDuree() . ", " .
+							self::TYPE_BRIQUE . " = " . $brique->getType_brique() . 
+					" WHERE " . self::ID . " = " . $brique->getId() . ";";
+		
+		return $this->connection->executeQuery($query);
+	}
+	
+	/**
+	 * DELETE
+	 * @param Brique $brique
+	 * @return string|number
+	 */
+	public function deleteBrique(Brique $brique) {
+		$query = "DELETE brique WHERE " . self::ID . " = " . $brique->getId();
+		
+		return $this->connection->executeQuery($query);
+	}
 }
