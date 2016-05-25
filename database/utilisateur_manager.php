@@ -76,7 +76,19 @@ class UtilisateurManager {
 	 */
 	public function getAllUtilisateurs(boolean $actif) {
 		$actifs = $actif ? " WHERE " . self::ACTIF . " = true" : "";
-		$query = "SELCT * FROM ad" . $actifs . ";";
+		$query = "SELECT * FROM ad" . $actifs . " ORDER BY " . self::PRENOM . ";";
+		$result = $this->connection->selectDB($query);
+		while ($row = $result->fetch()) {
+			$utilisateur = self::rowToUtilisateur($row);
+			$response[] = $utilisateur;
+			unset($utilisateur);
+		}
+		return $response;
+	}
+	
+	public function getAllUtilisateursParType(int $type_collaborateur, boolean $actif) {
+		$actifs = $actif ? " AND " . self::ACTIF . " = true" : "";
+		$query = "SELECT * FROM ad WHERE " . self::TYPE_COLLABORATEUR . " = " . $type_collaborateur . $actifs . " ORDER BY " . self::PRENOM . ";";
 		$result = $this->connection->selectDB($query);
 		while ($row = $result->fetch()) {
 			$utilisateur = self::rowToUtilisateur($row);

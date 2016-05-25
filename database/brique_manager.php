@@ -19,6 +19,7 @@ require_once '../business/class.Brique.php';
 class BriqueManager {
 	
 	private $connection;
+	
 	// Nom de la table
 	const TABLE_NAME = 'brique';
 	

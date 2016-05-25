@@ -23,7 +23,7 @@ $mois = $aujourdhui["mon"];
 $annee = $aujourdhui["year"];
 if(isset($_GET["mois"]))
 	$mois = $_GET["mois"];
-if(isset($_get["annee"]))
+if(isset($_GET["annee"]))
 	$annee = $_GET["annee"];
 
 // Définir les mois et années précédents et suivants
