@@ -24,6 +24,11 @@ class Brique {
 	private $utilisateur;
 	private $type_brique;
 	
+	// Constantes
+	const MATIN = 'am';
+	const APRES_MIDI = 'pm';
+	// TODO const valeurs de $jour_semaine : string ou int...
+	
 	// constructeur
 	function __construct($id, $demi_jour, $habituelle, $jour_semaine, $frequence, 
 						 $date, $texte, $duree, $utilisateur, $type_brique) {

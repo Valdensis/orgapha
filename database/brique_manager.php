@@ -69,12 +69,75 @@ class BriqueManager {
 		return $retour;
 	}
 	
+	/**
+	 * @param int $id_utilisateur
+	 * @param string $demi_jour
+	 * @param unknown $jour
+	 * @return NULL|Brique
+	 */
 	public function getBriqueHabituelle($id_utilisateur, $demi_jour, $jour ) {
-		// TODO 
+		// Tests
+		if ($id_utilisateur < 1) return null;
+		if ($demi_jour != Brique::MATIN && $demi_jour != Brique::APRES_MIDI) return null;
+		// TODO if ($jour)
+		
+		$query = "SELECT * FROM brique WHERE " . self::UTILISATEUR . " = '$id_utilisateur' AND " .
+				self::DEMI_JOUR . " = '$demi_jour' AND " .
+				self::JOUR_SEMAINE . " = '$jour' AND " .
+				self::HABITUELLE . " = 1";					// pour avoir que les briques habituelles
+		$result = $this->connection->selectDB($query);
+		$row = $result->fetch();
+		if (!row) return null;
+		
+		$retour = self::rowToBrique($row);
+		
+		return $retour;
 	}
 	
-	public function getBriqueUnique($id_utilisateur, $demi_jour, $date) {
-		// TODO
-	}
 	
+	/**
+	 * @param int $id_utilisateur
+	 * @param string $demi_jour
+	 * @param unknown $date
+	 * @return NULL|Brique
+	 */
+	public function getBriqueUnique(int $id_utilisateur, string $demi_jour, $date) {
+		// Tests
+		if ($id_utilisateur < 1) return null;
+		if ($demi_jour != Brique::MATIN && $demi_jour != Brique::APRES_MIDI) return null;
+		// TODO if ($date)
+		if (!checkdate(substr($date, 5, 2), substr($date, 8, 2), substr($date, 0, 4))) {
+			echo "$date n'est pas une date aaaa-mm-jj";
+			return null;
+		}
+		
+		$query = "SELECT * FROM brique WHERE " . self::UTILISATEUR . " = '$id_utilisateur' AND " .
+				self::DEMI_JOUR . " = '$demi_jour' AND " .
+				self::DATE_BRIQUE . " = '$date' AND " .
+				self::HABITUELLE . " = 0";					// pour avoir les briques non-habituelles
+		$result = $this->connection->selectDB($query);
+		$row = $result->fetch();
+		if (!row) return null;
+		
+		$retour = self::rowToBrique($row);
+		
+		return $retour;
+	}
+	/*
+	 * CREATE, UPDATE, DELETE
+	 */
+	/**
+	 * CREATE
+	 * @param Brique $brique
+	 * @return NULL|string|number
+	 */
+	public function createBrique(Brique $brique) {
+		if ($brique == null) return null;
+		
+		$query = "INSERT INTO brique (" . 	self::DEMI_JOUR . ", " . 	self::HABITUELLE . ", " . self::JOUR_SEMAINE . ", " . self::FREQUENCE . ", " . self::DATE_BRIQUE . ", " . self::TEXTE . ", " . self::TEXTE . ", " . self::DUREE . ", " . self::UTILISATEUR . ", " . self::TYPE_BRIQUE . ")
+									VALUES ('" . $brique->getDemi_jour() . "', '" . $brique->isHabituelle() . "', '" . $brique->getJour_semaine() . "', '" . $brique->getFrequence() . "', '" . $brique->getDate() . "', '" . $brique->getTexte() . "', '" . $brique->getDuree() . "', '" . $brique->getUtilisateur() . "', '" . $brique->getType_brique() . "');";
+		
+		return $this->connection->executeQuery($query);
+	}
+	// TODO
 }
