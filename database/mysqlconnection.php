@@ -17,9 +17,9 @@ class MySqlConnection {
 	const HOST = "127.0.0.1";
 	const PORT = "3306";
 	const DATABASE = "orgapha";
-	const USER = "orgapha";
-	const PWD = "GNPJyfnSsCXxcJ3x";
-	
+	const USER = "root";
+	//const PWD = "GNPJyfnSsCXxcJ3x";
+	const PWD = '';
 	private $_connection;
 	
 	public function __construct() {
