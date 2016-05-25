@@ -13,8 +13,8 @@
  *
  \************************************************************/
 
-require_once 'database/mysqlconnection.php';
-require_once 'business/class.Brique.php';
+require_once '../database/mysqlconnection.php';
+require_once '../business/class.Brique.php';
 
 class BriqueManager {
 	

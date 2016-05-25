@@ -175,16 +175,4 @@ class Utilisateur {
 	{
 	  $this->prenom = $prenom;
 	}
-	private $prenom;
-	private $nom;
-	private $surnom;
-	private $initiales;
-	private $passe;
-	private $email;
-	private $date_inscription;
-	private $date_entree;
-	private $date_sortie;
-	private $actif;
-	private $role;
-	private $type_collaborateur;
 }

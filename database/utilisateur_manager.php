@@ -12,8 +12,8 @@
  * Project			orgapha
  *
  \************************************************************/
-require_once 'database/mysqlconnection.php';
-require_once 'business/class.Utilisateur.php';
+require_once '../database/mysqlconnection.php';
+require_once '../business/class.Utilisateur.php';
 
 class UtilisateurManager {
 	
