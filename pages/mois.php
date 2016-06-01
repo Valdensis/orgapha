@@ -103,7 +103,7 @@ function nbJoursMois($noMois, $annee)
 		<tr>
 			<th align="left">Collaborateur</th>
 			<?php for ($i = 1; $i <= $nbJours; $i++) { ?>
-				<th class="cellule_titre" <?php if (strftime("%w", mktime(0,0,0,$mois,$i,$annee)) == 0) echo 'style="background-color: ' . COULEUR_DIMANCHE .'"';?>><?php echo $i?></th><!-- %w = jour de la semaine, 0 pour dimanche -->
+				<th class="cellule_titre" <?php if (strftime("%w", mktime(0,0,0,$mois,$i,$annee)) == 0) echo 'style="background-color: ' . COULEUR_DIMANCHE .'; color: white;"';?>><?php echo $i?></th><!-- %w = jour de la semaine, 0 pour dimanche -->
 			<?php } ?>
 		</tr>
 		<!-- Pour chaque type de collaborateur -->
@@ -119,9 +119,19 @@ function nbJoursMois($noMois, $annee)
 					<!-- Pour chaque collaborateur -->
 					<?php foreach ($collaborateurs as $coll) {?>
 					<tr>
-						<td><?php echo $coll->getPrenom();?></td>
-						<!-- Une case par jour sur la ligne -->
-						<?php for ($i = 1; $i <= $nbJours; $i++) {?>
+						<td rowspan="2"><?php echo $coll->getPrenom();?></td>
+						<!-- Une case par jour sur la ligne du matin -->
+						<?php for ($i = 1; $i <= $nbJours; $i++) {
+							// chercher si une brique existe pour cette case
+							$brique = $brique_manager->getBriqueHabituelle($coll->getId(), Brique::MATIN, $annee . '-' . $mois . '-' . $i)?>
+							<td><button class="cellule" >&nbsp;</button></td>
+						<?php }?>
+					</tr>
+					<tr>
+						<!-- Une case par jour sur la ligne de l'après-midi -->
+						<?php for ($i = 1; $i <= $nbJours; $i++) {
+							// chercher si une brique existe pour cette case
+							$brique = $brique_manager->getBriqueHabituelle($coll->getId(), Brique::APRES_MIDI, $annee . '-' . $mois . '-' . $i)?>
 							<td><button class="cellule" ></button></td>
 						<?php }?>
 					</tr>

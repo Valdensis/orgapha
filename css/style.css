@@ -1,5 +1,9 @@
 @CHARSET "ISO-8859-1";
 
+button .cellule {
+	height: 2em;
+	background-color: red;
+}
 
 .cellule_titre {
 	height: 1em;
@@ -7,13 +11,10 @@
 }
 
 .cellule_titre_dimanche {
-	
 	color: red;	
 }
 
-.cellule {
-	height: 2em;
-}
+
 
 .cellule_dimanche {
 	

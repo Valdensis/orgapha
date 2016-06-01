@@ -65,7 +65,7 @@ class BriqueManager {
 		$query = "SELECT * FROM brique WHERE " . self::ID . " = '$id'";
 		$result = $this->connection->selectDB($query);
 		$row = $result->fetch();
-		if (!row) return null;
+		if (!$row) return null;
 		
 		$retour = self::rowToBrique($row);
 		
@@ -90,7 +90,7 @@ class BriqueManager {
 				self::HABITUELLE . " = 1";					// pour avoir que les briques habituelles
 		$result = $this->connection->selectDB($query);
 		$row = $result->fetch();
-		if (!row) return null;
+		if (!$row) return null;
 		
 		$retour = self::rowToBrique($row);
 		
@@ -120,7 +120,7 @@ class BriqueManager {
 				self::HABITUELLE . " = 0";					// pour avoir les briques non-habituelles
 		$result = $this->connection->selectDB($query);
 		$row = $result->fetch();
-		if (!row) return null;
+		if (!$row) return null;
 		
 		$retour = self::rowToBrique($row);
 		
