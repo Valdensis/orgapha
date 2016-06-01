@@ -27,6 +27,7 @@ class Utilisateur {
 	private $actif;
 	private $role;
 	private $type_collaborateur;
+	private $type_salaire;
 	
 	// rôles
 	const _ADMIN = 1;		// administrateur, peut tout faire
@@ -34,10 +35,15 @@ class Utilisateur {
 	const _UTILIS = 3;		// utilisateur, peut modifier une case et demander congé
 	const _CONSULT = 4;		// consultation, peut juste voir le planning et demander congés
 	
+	// types salaires
+	const _MENSUEL = 'M';
+	const _HORAIRE = 'H';
+	const _HEBDOMADAIRE = 'S';
+	
 	// constructeur
 	function __construct($id, $prenom, $nom, $surnom, $initiales, $passe, 
 						$email, $date_inscription, $date_entree, $date_sortie, 
-						$actif, $role, $type_collaborateur) {
+						$actif, $role, $type_collaborateur, $type_salaire = self::_MENSUEL) {
 		$this->setId($id);
 		$this->setPrenom($prenom);
 		$this->setNom($nom);
@@ -52,10 +58,21 @@ class Utilisateur {
 		$this->setActif($actif);
 		$this->setRole($role);
 		$this->setType_collaborateur($type_collaborateur);
+		$this->setType_salaire($type_salaire);
 	}
 	
 	
 	// getters & setters
+	public function getType_salaire()
+	{
+		return $this->type_salaire;
+	}
+	
+	public function setType_salaire($type_salaire)
+	{
+		$this->type_salaire = $type_salaire;
+	}
+	
 	public function getType_collaborateur() 
 	{
 	  return $this->type_collaborateur;

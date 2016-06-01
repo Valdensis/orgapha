@@ -36,6 +36,7 @@ class UtilisateurManager {
 	const ACTIF = 'ut_actif';
 	const ROLE = 'ut_role';
 	const TYPE_COLLABORATEUR = 'ut_type_collaborateur';
+	const TYPE_SALAIRE = 'ut_type_salaire';
 	
 	// CONSTRUCTEUR
 	public function __construct() {
@@ -50,7 +51,7 @@ class UtilisateurManager {
 				$row[self::NOM], $row[self::SURNOM], $row[self::INITIALES], 
 				$row[self::PASSE], $row[self::EMAIL], $row[self::DATE_INSCRIPTION], 
 				$row[self::DATE_ENTREE], $row[self::DATE_SORTIE], $row[self::ACTIF], 
-				$row[self::ROLE], $row[self::TYPE_COLLABORATEUR]);
+				$row[self::ROLE], $row[self::TYPE_COLLABORATEUR], $row[self::TYPE_SALAIRE]);
 	}
 	
 	/**

@@ -17,6 +17,8 @@ include_once(dirname(__FILE__) . '/../database/type_collaborateur_manager.php');
 include_once(dirname(__FILE__) . '/../database/brique_manager.php');
 include_once(dirname(__FILE__) . '/../database/utilisateur_manager.php');
 include_once(dirname(__FILE__) . '/../database/type_brique_manager.php');
+include_once(dirname(__FILE__) . '/../templates/header.inc');
+include_once(dirname(__FILE__) . '/../ressources/config.php');
 
 
 // Création des Manager
@@ -27,6 +29,7 @@ $type_collaborateur_manager = new TypeCollaborateurManager();
 
 // Récupération du mois à afficher dans le GET, s'il n'y en a pas, met le mois courant
 $aujourdhui = getdate();	// retourne un tableau
+//print_r("*" . strftime("%w", mktime(0,0,0,6,1,2016)) . "*"); // affiche *3* pour mercredi
 $mois = $aujourdhui["mon"];
 $annee = $aujourdhui["year"];
 if(isset($_GET["mois"]))
@@ -98,14 +101,15 @@ function nbJoursMois($noMois, $annee)
 	<!-- Tableau du mois -->
 	<table>
 		<tr>
-			<th align="left">Collaborateur</th><?php for ($i = 1; $i <= $nbJours; $i++) {
-				?><th class="cellule"><?php echo $i?></th><?php 
-			}?>
+			<th align="left">Collaborateur</th>
+			<?php for ($i = 1; $i <= $nbJours; $i++) { ?>
+				<th class="cellule_titre" <?php if (strftime("%w", mktime(0,0,0,$mois,$i,$annee)) == 0) echo 'style="background-color: ' . COULEUR_DIMANCHE .'"';?>><?php echo $i?></th><!-- %w = jour de la semaine, 0 pour dimanche -->
+			<?php } ?>
 		</tr>
 		<!-- Pour chaque type de collaborateur -->
 		<?php foreach ($types_collaborateur as $type) {	?> 
-				<tr style="border: 5px solid green; ">
-					<th align="left"><?php echo $type->getDesignation()?></th>
+				<tr>
+					<th align="left" colspan="<?php echo $nbJours + 1;?>"><?php echo $type->getDesignation()?></th>
 				</tr>
 				<!-- Récupérer les collaborateurs de ce type -->
 				<?php $collaborateurs = $utilisateur_manager->getAllUtilisateursParType((Integer) $type->getId(), true);
@@ -113,10 +117,15 @@ function nbJoursMois($noMois, $annee)
 					<tr><td><em>Aucun collaborateur</em><td></tr>
 				<?php } else {?>
 					<!-- Pour chaque collaborateur -->
-					<?php foreach ($collaborateurs as $coll)?>
+					<?php foreach ($collaborateurs as $coll) {?>
 					<tr>
-						<td><?php echo $coll->getPrenom();?><td>
+						<td><?php echo $coll->getPrenom();?></td>
+						<!-- Une case par jour sur la ligne -->
+						<?php for ($i = 1; $i <= $nbJours; $i++) {?>
+							<td><button class="cellule" ></button></td>
+						<?php }?>
 					</tr>
+					<?php }?>
 				<?php }?>
 		<?php }?>
 	</table>
