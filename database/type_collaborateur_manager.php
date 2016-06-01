@@ -49,8 +49,9 @@ class TypeCollaborateurManager {
 	 * @return Type_collaborateur
 	 */
 	public function getAllTypeCollaborateurs() {
-		$query = "SELECT * FROM " . self::TABLE_NAME . " ORDER BY " . self::RANG . ";";
+		$query = "SELECT * FROM " . self::TABLE_NAME . " WHERE " . self::RANG . "> 0 ORDER BY " . self::RANG . ";";
 		$result = $this->connection->selectDB($query);
+		
 		while ($row = $result->fetch()) {
 			$type_collaborateur = self::rowToTypeCollaborateur($row);
 			$reponse[] = $type_collaborateur;

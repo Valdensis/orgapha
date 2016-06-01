@@ -13,10 +13,11 @@
  *
  \************************************************************/
 
+include_once(dirname(__FILE__) . '/../database/type_collaborateur_manager.php');
 include_once(dirname(__FILE__) . '/../database/brique_manager.php');
 include_once(dirname(__FILE__) . '/../database/utilisateur_manager.php');
 include_once(dirname(__FILE__) . '/../database/type_brique_manager.php');
-include_once(dirname(__FILE__) . '/../database/type_collaborateur_manager.php');
+
 
 // Création des Manager
 $brique_manager = new BriqueManager();
@@ -77,7 +78,7 @@ function nbJoursMois($noMois, $annee)
 				break;
 	}
 	return $reponse;
-}
+} 
 ?>
 <html>
 	<!-- Titre -->
@@ -106,6 +107,17 @@ function nbJoursMois($noMois, $annee)
 				<tr style="border: 5px solid green; ">
 					<th align="left"><?php echo $type->getDesignation()?></th>
 				</tr>
+				<!-- Récupérer les collaborateurs de ce type -->
+				<?php $collaborateurs = $utilisateur_manager->getAllUtilisateursParType((Integer) $type->getId(), true);
+				if($collaborateurs == null) { ?>
+					<tr><td><em>Aucun collaborateur</em><td></tr>
+				<?php } else {?>
+					<!-- Pour chaque collaborateur -->
+					<?php foreach ($collaborateurs as $coll)?>
+					<tr>
+						<td><?php echo $coll->getPrenom();?><td>
+					</tr>
+				<?php }?>
 		<?php }?>
 	</table>
 

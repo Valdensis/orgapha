@@ -60,7 +60,7 @@ class UtilisateurManager {
 	public function getUtilisateur(int $id) {
 		if ($id < 1) return null;
 		
-		$query = "SELECT * FROM brique WHERE " . self::ID . " = '$id';";
+		$query = "SELECT * FROM utilisateur WHERE " . self::ID . " = '$id';";
 		$result = $this->connection->selectDB($query);
 		$row = $result->fetch();
 		if (!row) return null;
@@ -76,7 +76,7 @@ class UtilisateurManager {
 	 */
 	public function getAllUtilisateurs(boolean $actif) {
 		$actifs = $actif ? " WHERE " . self::ACTIF . " = true" : "";
-		$query = "SELECT * FROM ad" . $actifs . " ORDER BY " . self::PRENOM . ";";
+		$query = "SELECT * FROM utilisateur" . $actifs . " ORDER BY " . self::PRENOM . ";";
 		$result = $this->connection->selectDB($query);
 		while ($row = $result->fetch()) {
 			$utilisateur = self::rowToUtilisateur($row);
@@ -86,15 +86,21 @@ class UtilisateurManager {
 		return $response;
 	}
 	
-	public function getAllUtilisateursParType(int $type_collaborateur, boolean $actif) {
+	/**
+	 * @param int $type_collaborateur
+	 * @param boolean $actif
+	 * @return Utilisateur
+	 */
+	public function getAllUtilisateursParType($type_collaborateur, $actif) {
 		$actifs = $actif ? " AND " . self::ACTIF . " = true" : "";
-		$query = "SELECT * FROM ad WHERE " . self::TYPE_COLLABORATEUR . " = " . $type_collaborateur . $actifs . " ORDER BY " . self::PRENOM . ";";
+		$query = "SELECT * FROM utilisateur WHERE " . self::TYPE_COLLABORATEUR . " = " . $type_collaborateur . $actifs . " ORDER BY " . self::PRENOM . ";";
 		$result = $this->connection->selectDB($query);
 		while ($row = $result->fetch()) {
 			$utilisateur = self::rowToUtilisateur($row);
 			$response[] = $utilisateur;
 			unset($utilisateur);
 		}
+		if(!isset($response)) return null;
 		return $response;
 	}
 	/*

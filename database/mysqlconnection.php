@@ -25,8 +25,8 @@ class MySqlConnection {
 	public function __construct() {
 		try {
 			$this->_connection = new PDO('mysql:host=' . self::HOST . 
-										'; port =' . self::PORT .
-										'; dbname =' . self::DATABASE, self::USER, self::PWD);
+										//'; port =' . self::PORT .
+										'; dbname=' . self::DATABASE, self::USER, self::PWD);
 		} catch (PDOException $e) {
 			die ('Connection failed: ' . $e->getMessage());
 		}
