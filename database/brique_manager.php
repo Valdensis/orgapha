@@ -15,6 +15,7 @@
 
 require_once '../database/mysqlconnection.php';
 require_once '../business/class.Brique.php';
+require_once 'type_brique_manager.php';
 
 class BriqueManager {
 	
@@ -104,7 +105,7 @@ class BriqueManager {
 	 * @param unknown $date
 	 * @return NULL|Brique
 	 */
-	public function getBriqueUnique(int $id_utilisateur, string $demi_jour, $date) {
+	public function getBriqueUnique($id_utilisateur, $demi_jour, $date) {
 		// Tests
 		if ($id_utilisateur < 1) return null;
 		if ($demi_jour != Brique::MATIN && $demi_jour != Brique::APRES_MIDI) return null;
@@ -173,5 +174,15 @@ class BriqueManager {
 		$query = "DELETE brique WHERE " . self::ID . " = " . $brique->getId();
 		
 		return $this->connection->executeQuery($query);
+	}
+	
+	/*
+	 * AUTRES FONCTIONS
+	 */
+	public function getColor(Brique $brique) {
+		$type_brique_manager = new TypeBriqueManager();
+		$type_brique = $type_brique_manager->getTypeBrique($brique->getType_brique());
+		if($type_brique == null) return "#000000";
+		return $type_brique->getCouleur();
 	}
 }

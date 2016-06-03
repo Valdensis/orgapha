@@ -83,7 +83,10 @@ function nbJoursMois($noMois, $annee)
 	return $reponse;
 } 
 ?>
-<html>
+
+	
+<body>
+
 	<!-- Titre -->
 	<div>
 		<h1 style="display: inline;">
@@ -120,24 +123,36 @@ function nbJoursMois($noMois, $annee)
 					<?php foreach ($collaborateurs as $coll) {?>
 					<tr>
 						<td rowspan="2"><?php echo $coll->getPrenom();?></td>
-						<!-- Une case par jour sur la ligne du matin -->
-						<?php for ($i = 1; $i <= $nbJours; $i++) {
-							// chercher si une brique existe pour cette case
-							$brique = $brique_manager->getBriqueHabituelle($coll->getId(), Brique::MATIN, $annee . '-' . $mois . '-' . $i)?>
-							<td><button class="cellule" >&nbsp;</button></td>
-						<?php }?>
-					</tr>
-					<tr>
-						<!-- Une case par jour sur la ligne de l'après-midi -->
-						<?php for ($i = 1; $i <= $nbJours; $i++) {
-							// chercher si une brique existe pour cette case
-							$brique = $brique_manager->getBriqueHabituelle($coll->getId(), Brique::APRES_MIDI, $annee . '-' . $mois . '-' . $i)?>
-							<td><button class="cellule" ></button></td>
-						<?php }?>
+						<!-- on passe 2 fois cette boucle, une fois pour le matin, une fois pour l'après-midi -->
+						<?php for ($demi = 0; $demi < 2; $demi++) {
+						$ampm = ($demi == 0) ? Brique::MATIN : Brique::APRES_MIDI;	
+							?>
+							<!-- Une case par jour sur la ligne du matin -->
+							<?php for ($i = 1; $i <= $nbJours; $i++) {
+								
+								/* Il y a 3 cas : dimanche, brique existante, ou rien. Une brique existante l'emporte sur un dimanche */
+								
+								// chercher si une brique existe pour cette case
+								$brique = $brique_manager->getBriqueUnique($coll->getId(), $ampm, $annee . '-' . str_pad($mois,2,'0', STR_PAD_LEFT) . '-' . str_pad($i, 2, '0', STR_PAD_LEFT));
+								if ($brique != null) { ?>
+									<!-- Cas où une brique existe -->
+									<td class="cellule" style="background-color: <?php echo $brique_manager->getColor($brique);?>"><a><?php echo $brique->getTexte();?></a></td>
+								<?php } 
+								elseif (strftime("%w", mktime(0,0,0,$mois,$i,$annee)) == 0) {?>
+									<!-- Cas où c'est un dimanche -->
+									<td class="cellule" style="background-color: <?php echo COULEUR_DIMANCHE;?>; color: white;"><a ></a></td>
+								<?php } else { ?>
+									<!-- Cas où il n'y a rien, on met une case blanche -->
+									<td class="cellule" style="background-color: #eee"><a>&nbsp;</a></td>
+								<?php } // fin if elseif?>	
+							<?php } // fin for $i?>
+							</tr>
+							<tr>		
+						<?php }	// fin for $demi?>
 					</tr>
 					<?php }?>
 				<?php }?>
 		<?php }?>
 	</table>
-
+</body>
 </html>

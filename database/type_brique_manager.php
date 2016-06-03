@@ -14,6 +14,7 @@
  \************************************************************/
 require_once '../database/mysqlconnection.php';
 require_once '../business/class.Brique.php';
+require_once '../business/class.Type_brique.php';
 
 class TypeBriqueManager {
 	
@@ -53,13 +54,13 @@ class TypeBriqueManager {
 	 * @param int $id
 	 * @return NULL|Type_brique
 	 */
-	public function getTypeBrique(int $id) {
+	public function getTypeBrique($id) {
 		if ($id < 1) return null;
 		
 		$query = "SELECT * FROM type_brique WHERE " . self::ID . " = '$id'";
 		$result = $this->connection->selectDB($query);
 		$row = $result->fetch();
-		if (!row) return null;
+		if (!$row) return null;
 		
 		$retour = self::rowToTypeBrique($row);
 		
