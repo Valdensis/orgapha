@@ -22,6 +22,7 @@ a.bouton {
 	display: table-cell;
 	height: 2em;
 	width: 2em; 
+	color: black;
 }
 
 .cellule_titre {

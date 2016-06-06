@@ -21,7 +21,7 @@ include_once(dirname(__FILE__) . '/../templates/header.inc');
 include_once(dirname(__FILE__) . '/../ressources/config.php');
 
 
-// Création des Manager
+// Création des Managers
 $brique_manager = new BriqueManager();
 $utilisateur_manager = new UtilisateurManager();
 $type_brique_manager = new TypeBriqueManager();
@@ -136,7 +136,7 @@ function nbJoursMois($noMois, $annee)
 								// transformer les infos disponibles en date au format aaaa-mm-jj
 								$cejour = $annee . '-' . str_pad($mois,2,'0', STR_PAD_LEFT) . '-' . str_pad($i, 2, '0', STR_PAD_LEFT);
 								// créer la chaîne de caractères pour le href, correspondant aux données disponibles
-								$href = "brique.php?coll=" . $coll->getId() . "&demijour=" . $ampm . "&date=" . $cejour;
+								$href = "brique.php?habituelle=0&coll=" . $coll->getId() . "&demijour=" . $ampm . "&date=" . $cejour;
 								// chercher si une brique existe pour cette case
 								$brique = $brique_manager->getBriqueUnique($coll->getId(), $ampm, $cejour);
 		
