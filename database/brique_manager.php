@@ -60,7 +60,7 @@ class BriqueManager {
 	 * @param int $id
 	 * @return NULL|Brique
 	 */
-	public function getBrique(int $id) {
+	public function getBrique($id) {
 		if ($id < 1) return null;
 		
 		$query = "SELECT * FROM brique WHERE " . self::ID . " = '$id'";

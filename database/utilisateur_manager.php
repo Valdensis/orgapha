@@ -58,13 +58,13 @@ class UtilisateurManager {
 	 * @param int $id
 	 * @return NULL|Utilisateur
 	 */
-	public function getUtilisateur(int $id) {
+	public function getUtilisateur($id) {
 		if ($id < 1) return null;
 		
 		$query = "SELECT * FROM utilisateur WHERE " . self::ID . " = '$id';";
 		$result = $this->connection->selectDB($query);
 		$row = $result->fetch();
-		if (!row) return null;
+		if (!$row) return null;
 		
 		$retour = self::rowToUtilisateur($row);
 		
