@@ -1,6 +1,10 @@
 @CHARSET "ISO-8859-1";
 
 
+a {
+	text-decoration: none;
+}
+
 a.bouton {
 	display: block;
 	display: inline-block;
@@ -14,15 +18,15 @@ a.bouton {
 	padding: 10px;
 }
 
-a.cellule {
-	height: 1em;
-	width: 1em;
-	background-color: red;
+.cellule {
+	display: table-cell;
+	height: 2em;
+	width: 2em; 
 }
 
 .cellule_titre {
-	height: 1em;
-	width: 1em;
+	height: 2em;
+	width: 2em;
 }
 
 .cellule_titre_dimanche {

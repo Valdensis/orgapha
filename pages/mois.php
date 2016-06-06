@@ -105,6 +105,7 @@ function nbJoursMois($noMois, $annee)
 	<table>
 		<tr>
 			<th align="left">Collaborateur</th>
+			<!-- Jours 1 à 28-31 en tête de colonne -->
 			<?php for ($i = 1; $i <= $nbJours; $i++) { ?>
 				<th class="cellule_titre" <?php if (strftime("%w", mktime(0,0,0,$mois,$i,$annee)) == 0) echo 'style="background-color: ' . COULEUR_DIMANCHE .'; color: white;"';?>><?php echo $i?></th><!-- %w = jour de la semaine, 0 pour dimanche -->
 			<?php } ?>
@@ -132,18 +133,29 @@ function nbJoursMois($noMois, $annee)
 								
 								/* Il y a 3 cas : dimanche, brique existante, ou rien. Une brique existante l'emporte sur un dimanche */
 								
+								// transformer les infos disponibles en date au format aaaa-mm-jj
+								$cejour = $annee . '-' . str_pad($mois,2,'0', STR_PAD_LEFT) . '-' . str_pad($i, 2, '0', STR_PAD_LEFT);
+								// créer la chaîne de caractères pour le href, correspondant aux données disponibles
+								$href = "brique.php?coll=" . $coll->getId() . "&demijour=" . $ampm . "&date=" . $cejour;
 								// chercher si une brique existe pour cette case
-								$brique = $brique_manager->getBriqueUnique($coll->getId(), $ampm, $annee . '-' . str_pad($mois,2,'0', STR_PAD_LEFT) . '-' . str_pad($i, 2, '0', STR_PAD_LEFT));
+								$brique = $brique_manager->getBriqueUnique($coll->getId(), $ampm, $cejour);
+		
 								if ($brique != null) { ?>
 									<!-- Cas où une brique existe -->
-									<td class="cellule" style="background-color: <?php echo $brique_manager->getColor($brique);?>"><a><?php echo $brique->getTexte();?></a></td>
+									<td  style="background-color: <?php echo $brique_manager->getColor($brique);?>">
+										<a class="cellule" href="<?php echo $href . "&idbrique=" . $brique->getId();?>"><?php echo $brique->getTexte();?></a>
+									</td>
 								<?php } 
 								elseif (strftime("%w", mktime(0,0,0,$mois,$i,$annee)) == 0) {?>
 									<!-- Cas où c'est un dimanche -->
-									<td class="cellule" style="background-color: <?php echo COULEUR_DIMANCHE;?>; color: white;"><a ></a></td>
+									<td  style="background-color: <?php echo COULEUR_DIMANCHE;?>; color: white;">
+										<a class="cellule" href="<?php echo $href;?>"></a>
+									</td>
 								<?php } else { ?>
 									<!-- Cas où il n'y a rien, on met une case blanche -->
-									<td class="cellule" style="background-color: #eee"><a>&nbsp;</a></td>
+									<td style="background-color: #eee" >
+										<a class="cellule" href="<?php echo $href;?>"></a>
+									</td>
 								<?php } // fin if elseif?>	
 							<?php } // fin for $i?>
 							</tr>
