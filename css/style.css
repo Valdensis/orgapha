@@ -43,3 +43,7 @@ a.bouton {
 .fondcolore {
 	background-color: red;
 }
+
+.erreur {
+	color: red;
+}

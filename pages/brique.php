@@ -35,6 +35,11 @@ if(isset($_GET["date"])) {
 	$aujourdhui = getdate();	// retourne un tableau
 	$date = $aujourdhui["year"] . '-' . str_pad($aujourdhui["mon"],2,'0', STR_PAD_LEFT) . '-' . str_pad($aujourdhui["mday"], 2, '0', STR_PAD_LEFT);
 }
+if(isset($_GET["joursemaine"])) {
+	$jour_semaine = $_GET["joursemaine"];
+} else {
+	$jour_semaine = null;
+}
 if(isset($_GET["coll"])) { 
 	$id_utilisateur = intval($_GET["coll"]);
 	$collaborateur = $utilisateur_manager->getUtilisateur($id_utilisateur);
@@ -53,8 +58,32 @@ if(isset($_GET["idbrique"])) {
 } else {
 	$brique = new Brique(0, $demi_jour, $habituelle, $jour_semaine, 1, $date, "", 4, $id_utilisateur, 0);
 }
-?>
 
+// Constantes correspondant aux noms de champs utilisés dans l'array $form_data_brique
+define("_ID", "id");
+define("_JOUR_SEMAINE", "jour_semaine");
+define("_DATE", "date");
+define("_DEMI_JOUR", "demi_jour");
+define("_FREQUENCE", "frequence");
+define("_TYPE_BRIQUE", "type_brique");
+define("_DUREE", "duree");
+define("_TEXTE", "texte");
+
+// Récupération des messages d'erreur.
+$rank = isset($_SESSION['rank']) ? $_SESSION['rank'] : '';
+$msg = isset($_SESSION['msg']) ? '<span class="erreur" >* ' . $_SESSION['msg'] . '</span>' : '';
+$form_data_brique = isset($_SESSION['form_data_brique']) ? $_SESSION['form_data_brique'] : array (
+		'jour_semaine' => '',
+		'date' => '',
+		'demi_jour' => '',
+		'frequence' => '',
+		'type_brique' => '',
+		'duree' => '',
+		'texte'=> ''
+);
+if (isset($_SESSION['form_data_brique'])) unset($_SESSION['form_data_brique']);
+?>
+<head><script type="text/javascript" src="../script/datePicker.js"></script></head>
 <body>
 	<!-- Titre -->
 	<table>
@@ -64,5 +93,34 @@ if(isset($_GET["idbrique"])) {
 			<td style="text-align: right;"><?php echo 'Brique ' . ($habituelle?'habituelle':'unique');?></td>
 		</tr>
 	</table>
-	
+	<!-- Formulaire de saisie de la brique -->
+	<form method="post" action="../backoffice/back.brique.php">
+		<table>
+		<!-- jour de la semaine (que si c'est une brique habituelle) -->
+		<?php if ($habituelle == true) {?>
+			<tr>
+				<td>Jour de la semaine :</td>
+				<td>
+					<select name="jour_semaine">
+						<option value=1 <?php if ($form_data_brique[_JOUR_SEMAINE] == 1 ) echo 'selected="selected"' ?>>lundi</option>
+						<option value=2 <?php if ($form_data_brique[_JOUR_SEMAINE] == 2 ) echo 'selected="selected"' ?>>mardi</option>
+						<option value=3 <?php if ($form_data_brique[_JOUR_SEMAINE] == 3 ) echo 'selected="selected"' ?>>mercredi</option>
+						<option value=4 <?php if ($form_data_brique[_JOUR_SEMAINE] == 4 ) echo 'selected="selected"' ?>>jeudi</option>
+						<option value=5 <?php if ($form_data_brique[_JOUR_SEMAINE] == 5 ) echo 'selected="selected"' ?>>vendredi</option>
+						<option value=6 <?php if ($form_data_brique[_JOUR_SEMAINE] == 6 ) echo 'selected="selected"' ?>>samedi</option>
+						<option value=0 <?php if ($form_data_brique[_JOUR_SEMAINE] == 0 ) echo 'selected="selected"' ?>>dimanche</option>
+					</select>
+				</td>
+			</tr>
+		<?php }?>
+		<!-- date (que si c'est une brique unique) -->
+		<?php if ($habituelle == false) { ?>
+			<tr>
+				<td>Date :</td>
+				<td><input type="text" name="date" readonly="readonly" value="<?php echo $form_data_brique[_DATE];?>">
+				<input type="button" value="selection" onclick="displayDatePicker('date', false, 'ymd', '-');"></td>
+			</tr>
+		<?php }?>
+		</table>
+	</form>
 </body>
