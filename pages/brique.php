@@ -83,7 +83,9 @@ $form_data_brique = isset($_SESSION['form_data_brique']) ? $_SESSION['form_data_
 );
 if (isset($_SESSION['form_data_brique'])) unset($_SESSION['form_data_brique']);
 ?>
-<head><script type="text/javascript" src="../script/datePicker.js"></script></head>
+<head><script type="text/javascript" src="datePicker.js" ></script>
+<title>Coucou</title>
+</head>
 <body>
 	<!-- Titre -->
 	<table>
@@ -118,9 +120,9 @@ if (isset($_SESSION['form_data_brique'])) unset($_SESSION['form_data_brique']);
 			<tr>
 				<td>Date :</td>
 				<td><input type="text" name="date" readonly="readonly" value="<?php echo $form_data_brique[_DATE];?>">
-				<input type="button" value="selection" onclick="displayDatePicker('date', false, 'ymd', '-');"></td>
+				<input type="button" value="selection" onclick="displayDatePicker('date', false, 'dmy', '.');"></td>
 			</tr>
-		<?php }?>
+		<?php } //?>
 		</table>
 	</form>
 </body>

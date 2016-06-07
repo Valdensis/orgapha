@@ -41,5 +41,5 @@
 	var november = 'novembre';			// <?php echo json_encode(_NOVEMBRE);?>;
 	var december = 'décembre';			// <?php echo json_encode(_DECEMBRE);?>;
 </script-->
-<script type="text/javascript" src="../script/datePicker.js"></script>
+<script type="text/javascript" src="datePicker.js" charset="UTF-8"></script>
 </head>
