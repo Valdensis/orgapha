@@ -85,7 +85,7 @@ if (isset($_SESSION['form_data_brique'])) unset($_SESSION['form_data_brique']);
 
 ?>
 <head><script type="text/javascript" src="datePicker.js" ></script>
-<title>Coucou</title>
+<title>Brique</title>
 </head>
 <body>
 	<!-- Titre -->
@@ -149,7 +149,7 @@ if (isset($_SESSION['form_data_brique'])) unset($_SESSION['form_data_brique']);
 				<select name="type_brique">
 					<option value="0" disabled="disabled">Sélectionner le type de brique...</option>
 					<?php foreach ($type_brique_manager->getAllTypeBriques() as $type_brique) { ?>
-						<option value="<?php $type_brique->getId()?>" 
+						<option value="<?php $type_brique->getId()?>" style="background-color: <?php echo $type_brique->getCouleur()?>;"
 								<?php if ($type_brique->getId() == $brique->getType_brique()) echo 'selected="selected"'?>>
 								<?php echo $type_brique->getDesignation()?></option>
 					<?php }?>
