@@ -82,6 +82,7 @@ $form_data_brique = isset($_SESSION['form_data_brique']) ? $_SESSION['form_data_
 		'texte'=> ''
 );
 if (isset($_SESSION['form_data_brique'])) unset($_SESSION['form_data_brique']);
+
 ?>
 <head><script type="text/javascript" src="datePicker.js" ></script>
 <title>Coucou</title>
@@ -119,10 +120,61 @@ if (isset($_SESSION['form_data_brique'])) unset($_SESSION['form_data_brique']);
 		<?php if ($habituelle == false) { ?>
 			<tr>
 				<td>Date :</td>
-				<td><input type="text" name="date" readonly="readonly" value="<?php echo $form_data_brique[_DATE];?>">
-				<input type="button" value="selection" onclick="displayDatePicker('date', false, 'dmy', '.');"></td>
+				<td><input type="text" name="date" value="<?php echo $form_data_brique[_DATE];?>"></td>
+				<!-- td><input type="text" name="date" readonly="readonly" value="<?php echo $form_data_brique[_DATE];?>">
+				<input type="button" value="selection" onclick="displayDatePicker('date', false, 'dmy', '.');"></td-->
 			</tr>
 		<?php } //?>
+		<!-- demi-jour am/pm -->
+		<tr>
+			<td>Demi-journée : </td>
+			<td>
+				<select name="demi_jour">
+					<option value="am" <?php if ($demi_jour == 'am') echo 'selected="selected"'?>>matin</option>
+					<option value="pm" <?php if ($demi_jour == 'pm') echo 'selected="selected"'?>>après-midi</option>
+				</select>
+			</td>
+		</tr>
+		<!-- fréquence (toutes les ... semaines) -->
+		<?php if ($habituelle == true) {?>
+			<tr>
+				<td>Fréquence : </td>
+				<td><input type="text" name="frequence" value="<?php echo $form_data_brique[_FREQUENCE]?>"></td>
+			</tr>
+		<?php }?>
+		<!-- type brique -->
+		<tr>
+			<td>Type de brique : </td>
+			<td>
+				<select name="type_brique">
+					<option value="0" disabled="disabled">Sélectionner le type de brique...</option>
+					<?php foreach ($type_brique_manager->getAllTypeBriques() as $type_brique) { ?>
+						<option value="<?php $type_brique->getId()?>" 
+								<?php if ($type_brique->getId() == $brique->getType_brique()) echo 'selected="selected"'?>>
+								<?php echo $type_brique->getDesignation()?></option>
+					<?php }?>
+				</select>
+			</td>
+		</tr>
+		<!-- Durée -->
+		<tr>
+			<td>Durée [h] : </td>
+			<td><input type="text" name="duree" value="<?php echo $brique->getDuree()?>"></td>
+		</tr>
+		<!-- Texte -->
+		<tr>
+			<td>Texte : </td>
+			<td><input type="text" name="texte" value="<?php echo $brique->getTexte()?>"></td>
+		</tr>
+		<!-- Boutons -->
+		<tr>
+			<td><input type="submit" name="<?php echo ($habituelle == 1) ? "retour_semaine" : "retour_mois";?>" value="Retour"></td>
+			<td><input type="submit" name="enregistrer" value="Enregistrer"></td>
+		</tr>
+		<tr>
+			<td><input type="submit" name="supprimer" value="Supprimer"></td> 	
+			<td><input type="submit" name="creer_habituelle" value="Créer brique habituelle"></td>
+		</tr>
 		</table>
 	</form>
 </body>

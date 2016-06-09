@@ -66,6 +66,18 @@ class TypeBriqueManager {
 		
 		return $retour;
 	}
+	
+	public function getAllTypeBriques() {
+		$query = "SELECT * FROM " . self::TABLE_NAME . ";";
+		$result = $this->connection->selectDB($query);
+		
+		while ($row = $result->fetch()) {
+			$type_brique = self::rowToTypeBrique($row);
+			$reponse[] = $type_brique;
+			unset($type_brique);
+		}
+		return $reponse;
+	}
 	/*
 	 * CREATE, UPDATE, DELETE
 	 */
