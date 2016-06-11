@@ -57,6 +57,7 @@ $types_collaborateur = $type_collaborateur_manager->getAllTypeCollaborateurs();
 
 // Fonction transformant le numéro du mois en nom de mois
 function nomMois($noMois) {
+	$noMois = intval($noMois);
 	$nomMois = "";
 	$nomsMois = array("", "Janvier", "Fevrier", "Mars", "Avril", "Mai",
 			"Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre");

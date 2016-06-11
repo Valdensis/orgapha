@@ -119,8 +119,8 @@ if (isset($_SESSION['form_data_brique'])) unset($_SESSION['form_data_brique']);
 		<!-- date (que si c'est une brique unique) -->
 		<?php if ($habituelle == false) { ?>
 			<tr>
-				<td>Date :</td>
-				<td><input type="text" name="date" value="<?php echo $form_data_brique[_DATE];?>"></td>
+				<td>Date [aaaa-mm-jj] :</td>
+				<td><input type="text" name="date" value="<?php echo $date;?>"></td>
 				<!-- td><input type="text" name="date" readonly="readonly" value="<?php echo $form_data_brique[_DATE];?>">
 				<input type="button" value="selection" onclick="displayDatePicker('date', false, 'dmy', '.');"></td-->
 			</tr>
