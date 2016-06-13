@@ -24,10 +24,22 @@ class Brique {
 	private $utilisateur;
 	private $type_brique;
 	
-	// Constantes
+	// Constantes pour remplir les colonnes
 	const MATIN = 'am';
 	const APRES_MIDI = 'pm';
 	// TODO const valeurs de $jour_semaine : string ou int...
+	
+	// Constantes correspondant aux noms de champs dans $form_data_brique ou ailleurs
+	const _ID = 'id';
+	const _JOUR_SEMAINE = 'jour_semaine';
+	const _DATE = 'date';
+	const _DEMI_JOUR = 'demi_jour';
+	const _FREQUENCE = 'frequence';
+	const _TYPE_BRIQUE = 'type_brique';
+	const _DUREE = 'duree';
+	const _TEXTE = 'texte';
+	const _HABITUELLE = 'habituelle';
+	const _UTILISATEUR = 'utilisateur';
 	
 	// constructeur
 	function __construct($id, $demi_jour, $habituelle, $jour_semaine, $frequence, 
