@@ -38,7 +38,6 @@ if (isset($_SESSION['rank'])) {
 
 // Récupération du mois à afficher dans le GET, s'il n'y en a pas, met le mois courant
 $aujourdhui = getdate();	// retourne un tableau
-//print_r("*" . strftime("%w", mktime(0,0,0,6,1,2016)) . "*"); // affiche *3* pour mercredi
 $mois = $aujourdhui["mon"];
 $annee = $aujourdhui["year"];
 if(isset($_GET["mois"]))
