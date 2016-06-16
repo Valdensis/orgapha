@@ -27,6 +27,15 @@ $utilisateur_manager = new UtilisateurManager();
 $type_brique_manager = new TypeBriqueManager();
 $type_collaborateur_manager = new TypeCollaborateurManager();
 
+// Récupération d'un message
+$msg = isset($_SESSION['msg']) ? '<span class="erreur" >* ' . $_SESSION['msg'] . '</span>' : '';
+if (isset($_SESSION['rank'])) {
+	$rank = $_SESSION['rank'];
+	unset($_SESSION['rank']);
+} else {
+	$rank = '';
+}
+
 // Récupération du mois à afficher dans le GET, s'il n'y en a pas, met le mois courant
 $aujourdhui = getdate();	// retourne un tableau
 //print_r("*" . strftime("%w", mktime(0,0,0,6,1,2016)) . "*"); // affiche *3* pour mercredi
@@ -100,7 +109,8 @@ function nbJoursMois($noMois, $annee)
 			<a id="suivant" class="bouton" href="mois.php?mois=<?php echo $moisSuivant?>
 							&annee=<?php echo $anneeSuivante?>">&gt;</a>
 			<a id="anSuivant" class="bouton" href="mois.php?mois=<?php echo $mois?>&annee=<?php echo $annee+1?>">&gt;&gt;</a>
-		</h1>				
+		</h1>
+		<?php if ($rank == 'resultat') echo $msg ;?>
 	</div>
 	<!-- Tableau du mois -->
 	<table>
@@ -137,7 +147,7 @@ function nbJoursMois($noMois, $annee)
 								// transformer les infos disponibles en date au format aaaa-mm-jj
 								$cejour = $annee . '-' . str_pad($mois,2,'0', STR_PAD_LEFT) . '-' . str_pad($i, 2, '0', STR_PAD_LEFT);
 								// créer la chaîne de caractères pour le href, correspondant aux données disponibles
-								$href = "brique.php?habituelle=0&coll=" . $coll->getId() . "&demijour=" . $ampm . "&date=" . $cejour;
+								$href = "/orgapha/pages/brique.php?habituelle=0&coll=" . $coll->getId() . "&demijour=" . $ampm . "&date=" . $cejour;
 								// chercher si une brique existe pour cette case
 								$brique = $brique_manager->getBriqueUnique($coll->getId(), $ampm, $cejour);
 		

@@ -60,7 +60,11 @@ if(isset($_GET["idbrique"])) {
 }
 
 // Récupération des messages d'erreur.
-$rank = isset($_SESSION['rank']) ? $_SESSION['rank'] : '';
+if (isset($_SESSION['rank'])) {
+	$rank = $_SESSION['rank'];
+} else {
+	$rank = '';
+}
 $msg = isset($_SESSION['msg']) ? '<span class="erreur" >* ' . $_SESSION['msg'] . '</span>' : '';
 $form_data_brique = isset($_SESSION['form_data_brique']) ? $_SESSION['form_data_brique'] : array (
 		'jour_semaine' => '',
@@ -85,9 +89,12 @@ if (isset($_SESSION['form_data_brique'])) unset($_SESSION['form_data_brique']);
 			<td style="min-width: 40%;"></td>
 			<td style="text-align: right;"><?php echo 'Brique ' . ($habituelle?'habituelle':'unique');?></td>
 		</tr>
+		<?php if ($rank == 'resultat') {
+			echo '<tr><td>' . $msg . '</td></tr>';
+		}?>
 	</table>
-	<!-- Formulaire de saisie de la brique -->
-	<form method="post" action="../backoffice/back.brique.php?id=<?php echo $brique->getId();?>">
+	<!-- Formulaire de saisie de la brique : on passe par le GET les infos qui ne sont pas dans le formulaire -->
+	<form method="post" action="../backoffice/back.brique.php?id=<?php echo $brique->getId();?>&coll=<?php echo $id_utilisateur ?>&habituelle=<?php echo $habituelle ?>">
 		<table>
 		<!-- jour de la semaine (que si c'est une brique habituelle) -->
 		<?php if ($habituelle == true) {?>
@@ -139,9 +146,9 @@ if (isset($_SESSION['form_data_brique'])) unset($_SESSION['form_data_brique']);
 				<select name="type_brique">
 					<option value="0" disabled="disabled">Sélectionner le type de brique...</option>
 					<?php foreach ($type_brique_manager->getAllTypeBriques() as $type_brique) { ?>
-						<option value="<?php $type_brique->getId()?>" style="background-color: <?php echo $type_brique->getCouleur()?>;"
+						<option value="<?php echo $type_brique->getId()?>" style="background-color: <?php echo $type_brique->getCouleur()?>;"
 								<?php if ($type_brique->getId() == $brique->getType_brique()) echo 'selected="selected"'?>>
-								<?php echo $type_brique->getDesignation()?></option>
+								<?php echo $type_brique->getDesignation();?></option>
 					<?php }?>
 				</select>
 			</td>

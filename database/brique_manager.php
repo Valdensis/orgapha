@@ -138,10 +138,16 @@ class BriqueManager {
 	public function createBrique(Brique $brique) {
 		if ($brique == null) return null;
 		
-		$query = "INSERT INTO brique (" . 	self::DEMI_JOUR . ", " . 	self::HABITUELLE . ", " . self::JOUR_SEMAINE . ", " . self::FREQUENCE . ", " . self::DATE_BRIQUE . ", " . self::TEXTE . ", " . self::TEXTE . ", " . self::DUREE . ", " . self::UTILISATEUR . ", " . self::TYPE_BRIQUE . ")
+		$query = "INSERT INTO brique (" . 	self::DEMI_JOUR . ", " . 	self::HABITUELLE . ", " . self::JOUR_SEMAINE . ", " . self::FREQUENCE . ", " . self::DATE_BRIQUE . ", " . self::TEXTE . ", " . self::DUREE . ", " . self::UTILISATEUR . ", " . self::TYPE_BRIQUE . ")
 									VALUES ('" . $brique->getDemi_jour() . "', '" . $brique->isHabituelle() . "', '" . $brique->getJour_semaine() . "', '" . $brique->getFrequence() . "', '" . $brique->getDate() . "', '" . $brique->getTexte() . "', '" . $brique->getDuree() . "', '" . $brique->getUtilisateur() . "', '" . $brique->getType_brique() . "');";
 		
-		return $this->connection->executeQuery($query);
+		$this->connection->executeQuery($query);
+		
+		// récupération de l'id
+		$query = "SELECT LAST_INSERT_ID()";
+		$result = $this->connection->selectDB($query);
+		$row = $result->fetch();
+		return $row[0];		
 	}
 	
 	/**
@@ -150,16 +156,16 @@ class BriqueManager {
 	 * @return string|number
 	 */
 	public function updateBrique(Brique $brique) {
-		$query = "UPDATE brique
-					SET " . self::DEMI_JOUR . " = " . $brique->getDemi_jour() . ", " .
-							self::HABITUELLE . " = " . $brique->isHabituelle() . ", " .
-							self::JOUR_SEMAINE . " = " . $brique->getJour_semaine() . ", " .
-							self::FREQUENCE . " = " . $brique->getFrequence() . ", " .
-							self::DATE_BRIQUE . " = " . $brique->getDate() . ", " .
-							self::TEXTE . " = " . $brique->getTexte() . ", " .
-							self::DUREE . " = " . $brique->getDuree() . ", " .
-							self::UTILISATEUR . " = " . $brique->getDuree() . ", " .
-							self::TYPE_BRIQUE . " = " . $brique->getType_brique() . 
+		$query = "UPDATE brique " .
+				   "SET " . self::DEMI_JOUR . " = '" . $brique->getDemi_jour() . "', " .
+							self::HABITUELLE . " = '" . $brique->isHabituelle() . "', " .
+							self::JOUR_SEMAINE . " = '" . $brique->getJour_semaine() . "', " .
+							self::FREQUENCE . " = '" . $brique->getFrequence() . "', " .
+							self::DATE_BRIQUE . " = '" . $brique->getDate() . "', " .
+							self::TEXTE . " = '" . $brique->getTexte() . "', " .
+							self::DUREE . " = '" . $brique->getDuree() . "', " .
+							self::UTILISATEUR . " = '" . $brique->getUtilisateur() . "', " .
+							self::TYPE_BRIQUE . " = '" . $brique->getType_brique() . "'" . 
 					" WHERE " . self::ID . " = " . $brique->getId() . ";";
 		
 		return $this->connection->executeQuery($query);
@@ -171,7 +177,7 @@ class BriqueManager {
 	 * @return string|number
 	 */
 	public function deleteBrique(Brique $brique) {
-		$query = "DELETE brique WHERE " . self::ID . " = " . $brique->getId();
+		$query = "DELETE FROM brique WHERE " . self::ID . " = " . $brique->getId();
 		
 		return $this->connection->executeQuery($query);
 	}
