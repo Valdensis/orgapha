@@ -34,7 +34,19 @@ a.bouton {
 	color: red;	
 }
 
+.cellule_semaine {
+	display: table-cell;
+	heigth: 2em;
+	width: 7em;
+	font-size: xx-small;
+}
 
+.cellule_titre_semaine {
+	border-style: solid;
+	border-color: black;
+	border-width: 1px;
+	font-size: large;
+}
 
 .cellule_dimanche {
 	

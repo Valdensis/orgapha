@@ -138,7 +138,7 @@ function nbJoursMois($noMois, $annee)
 						<?php for ($demi = 0; $demi < 2; $demi++) {
 						$ampm = ($demi == 0) ? Brique::MATIN : Brique::APRES_MIDI;	
 							?>
-							<!-- Une case par jour sur la ligne du matin -->
+							<!-- Une case par jour sur la ligne de la demi-journée -->
 							<?php for ($i = 1; $i <= $nbJours; $i++) {
 								
 								/* Il y a 3 cas : dimanche, brique existante, ou rien. Une brique existante l'emporte sur un dimanche */

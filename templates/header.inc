@@ -12,7 +12,16 @@
  * Project			orgapha
  *
  \************************************************************/
-session_start();
+if (! isset ( $_SESSION )) {
+	session_start ();
+}
+// Vérifier si une Session est en cours avec un no d'utilisateur
+if(!isset($_SESSION["utilisateur"]) OR $_SESSION["utilisateur"] == null)
+{
+	header ( "Location: /orgapha/pages/senregistrer.php" );
+} else {
+	$utilisateur = unserialize($_SESSION['utilisateur']);
+}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>

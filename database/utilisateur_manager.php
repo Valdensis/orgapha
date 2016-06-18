@@ -72,6 +72,23 @@ class UtilisateurManager {
 	}
 	
 	/**
+	 * 
+	 * @param String $initials
+	 * @param String $passe
+	 */
+	public function getUtilisateurParLogin($initials, $passe) {
+		$passe = sha1($passe);
+		$query = "SELECT * FROM utilisateur WHERE " . self::INITIALES . " = '$initials' AND " . self::PASSE . " = '$passe'";
+		$result = $this->connection->selectDB($query);
+		$row = $result->fetch();
+		if (!$row) return null;
+		
+		$retour = self::rowToUtilisateur($row);
+		
+		return $retour;
+	}
+	
+	/**
 	 * @param boolean $actif
 	 * @return Utilisateur
 	 */

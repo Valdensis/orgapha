@@ -56,7 +56,8 @@ if(isset($_GET["idbrique"])) {
 	$id_brique = intval($_GET["idbrique"]);
 	$brique = $brique_manager->getBrique($id_brique);
 } else {
-	$brique = new Brique(0, $demi_jour, $habituelle, $jour_semaine, 1, $date, "", 4, $id_utilisateur, 0);
+	$duree = ($demi_jour == Brique::MATIN) ? 4.25 : 4.50;
+	$brique = new Brique(0, $demi_jour, $habituelle, $jour_semaine, 1, $date, "", $duree, $id_utilisateur, 6);
 }
 
 // Récupération des messages d'erreur.
@@ -102,13 +103,13 @@ if (isset($_SESSION['form_data_brique'])) unset($_SESSION['form_data_brique']);
 				<td>Jour de la semaine :</td>
 				<td>
 					<select name="jour_semaine">
-						<option value=1 <?php if ($form_data_brique[Brique::_JOUR_SEMAINE] == 1 ) echo 'selected="selected"' ?>>lundi</option>
-						<option value=2 <?php if ($form_data_brique[Brique::_JOUR_SEMAINE] == 2 ) echo 'selected="selected"' ?>>mardi</option>
-						<option value=3 <?php if ($form_data_brique[Brique::_JOUR_SEMAINE] == 3 ) echo 'selected="selected"' ?>>mercredi</option>
-						<option value=4 <?php if ($form_data_brique[Brique::_JOUR_SEMAINE] == 4 ) echo 'selected="selected"' ?>>jeudi</option>
-						<option value=5 <?php if ($form_data_brique[Brique::_JOUR_SEMAINE] == 5 ) echo 'selected="selected"' ?>>vendredi</option>
-						<option value=6 <?php if ($form_data_brique[Brique::_JOUR_SEMAINE] == 6 ) echo 'selected="selected"' ?>>samedi</option>
-						<option value=0 <?php if ($form_data_brique[Brique::_JOUR_SEMAINE] == 0 ) echo 'selected="selected"' ?>>dimanche</option>
+						<option value=1 <?php if ($brique->getJour_semaine() == 1 ) echo 'selected="selected"' ?>>lundi</option>
+						<option value=2 <?php if ($brique->getJour_semaine() == 2 ) echo 'selected="selected"' ?>>mardi</option>
+						<option value=3 <?php if ($brique->getJour_semaine() == 3 ) echo 'selected="selected"' ?>>mercredi</option>
+						<option value=4 <?php if ($brique->getJour_semaine() == 4 ) echo 'selected="selected"' ?>>jeudi</option>
+						<option value=5 <?php if ($brique->getJour_semaine() == 5 ) echo 'selected="selected"' ?>>vendredi</option>
+						<option value=6 <?php if ($brique->getJour_semaine() == 6 ) echo 'selected="selected"' ?>>samedi</option>
+						<option value=0 <?php if ($brique->getJour_semaine() == 0 ) echo 'selected="selected"' ?>>dimanche</option>
 					</select>
 				</td>
 			</tr>
@@ -136,7 +137,7 @@ if (isset($_SESSION['form_data_brique'])) unset($_SESSION['form_data_brique']);
 		<?php if ($habituelle == true) {?>
 			<tr>
 				<td>Fréquence : </td>
-				<td><input type="text" name="frequence" value="<?php echo $form_data_brique[Brique::_FREQUENCE]?>"></td>
+				<td><input type="text" name="frequence" value="<?php echo $brique->getFrequence();?>"></td>
 			</tr>
 		<?php }?>
 		<!-- type brique -->
