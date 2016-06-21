@@ -53,3 +53,5 @@ if(!isset($_SESSION["utilisateur"]) OR $_SESSION["utilisateur"] == null)
 </script-->
 <script type="text/javascript" src="datePicker.js" charset="UTF-8"></script>
 </head>
+<body>
+	<div>Dans le header, mettre bouton pour logout</div>
