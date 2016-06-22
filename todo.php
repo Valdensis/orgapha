@@ -16,7 +16,5 @@
  \************************************************************/
 // FIXME Changer son mot de passe
 // TODO  Gérer les utilisateurs plus généralement
-// FIXME Propagation
-
 
 /* Liste des fichiers modifiés à déployer, à faire précéder d'un FIX ME */
