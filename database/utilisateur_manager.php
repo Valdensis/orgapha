@@ -124,5 +124,5 @@ class UtilisateurManager {
 	/*
 	 * CREATE, UPDATE, INSERT
 	 */
-	// TODO
+	// TODO create, update, insert pour utilisateur...
 }

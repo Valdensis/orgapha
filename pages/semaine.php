@@ -26,7 +26,7 @@ $type_brique_manager = new TypeBriqueManager();
 $type_collaborateur_manager = new TypeCollaborateurManager();
 
 // Récupération d'un message
-// TODO
+// TODO Gestion des messages dans la semaine.php
 $msg = isset($_SESSION['msg']) ? '<span class="erreur" >* ' . $_SESSION['msg'] . '</span>' : '';
 if (isset($_SESSION['rank'])) {
 	$rank = $_SESSION['rank'];

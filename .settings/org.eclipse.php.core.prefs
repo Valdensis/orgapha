@@ -1,2 +1,5 @@
 eclipse.preferences.version=1
 include_path=0;/orgapha
+org.eclipse.php.core.taskCaseSensitive=enabled
+org.eclipse.php.core.taskPriorities=NORMAL,HIGH,NORMAL,NORMAL,LOW
+org.eclipse.php.core.taskTags=TODO,FIXME,XXX,@todo,MAYDO

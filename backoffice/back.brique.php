@@ -130,5 +130,5 @@ function supprimer_brique() {
 }
 
 function creer_habituelle() {
-	// TODO
+	// TODO : créer brique habituelle à partir d'une brique unique déjà créée
 }

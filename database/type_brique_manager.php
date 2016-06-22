@@ -81,5 +81,6 @@ class TypeBriqueManager {
 	/*
 	 * CREATE, UPDATE, DELETE
 	 */
-	// TODO
+	
+	// MAYDO 	un jour peut-être les create, update et delete type_brique
 }
