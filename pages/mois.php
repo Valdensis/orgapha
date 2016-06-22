@@ -80,7 +80,7 @@ function nbJoursMois($noMois, $annee)
 		case 4:
 		case 6:
 		case 9:
-		case 10:
+		case 11:
 			$reponse = 30;
 			break;
 		case 2:
