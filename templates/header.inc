@@ -54,4 +54,4 @@ if(!isset($_SESSION["utilisateur"]) OR $_SESSION["utilisateur"] == null)
 <script type="text/javascript" src="datePicker.js" charset="UTF-8"></script>
 </head>
 <body>
-	<div>Dans le header, mettre bouton pour logout</div>
+	<div><a class="bouton" href="/orgapha/backoffice/back.logout.php">Logout</a></div>
