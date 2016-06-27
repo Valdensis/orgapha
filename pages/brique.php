@@ -60,6 +60,16 @@ if(isset($_GET["idbrique"])) {
 	$brique = new Brique(0, $demi_jour, $habituelle, $jour_semaine, 1, $date, "", $duree, $id_utilisateur, 6);
 }
 
+// Si l'utilisateur n'a pas les droits requis, retour au mois/semaine
+// FIXME finir ça pour que ça marche
+if ($utilisateur->getRole() != Utilisateur::_ADMIN) {
+	if ($habituelle) {
+		header("Location: /orgapha/pages/semaine.php");
+	} else {
+		header("Location: /orgapha/pages/mois.php");
+	}
+}
+
 // Récupération des messages d'erreur.
 if (isset($_SESSION['rank'])) {
 	$rank = $_SESSION['rank'];
