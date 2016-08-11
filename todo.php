@@ -14,6 +14,7 @@
  *					Pour la liste des choses à développer
  *
  \************************************************************/
+// FIXME Changer code mot de passe (salé + pas sha).
 // FIXME Changer son mot de passe
 // TODO  Gérer les utilisateurs plus généralement
 
